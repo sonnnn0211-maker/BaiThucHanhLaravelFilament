@@ -21,6 +21,8 @@ class ProductResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
+    
+    protected static ?string $slug = 'sv123-products';
 
     // 👉 FORM
     public static function form(Schema $schema): Schema

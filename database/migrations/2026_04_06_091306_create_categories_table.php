@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sv123_categories', function (Blueprint $table) {
-    $table->id();
-    $table->string('name')->unique();
-    $table->string('slug')->unique();
-    $table->text('description')->nullable();
-    $table->boolean('is_visible')->default(true);
-    $table->timestamps();
-});
+        Schema::create('23810310424_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->boolean('is_visible')->default(true);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('23810310424_categories');
     }
 };

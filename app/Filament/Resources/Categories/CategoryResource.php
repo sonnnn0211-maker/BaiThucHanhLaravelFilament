@@ -1,33 +1,55 @@
 <?php
 
-namespace App\Filament\Resources\Categories\Schemas;
+namespace App\Filament\Resources\Categories;
 
-use Filament\Forms;
+use App\Filament\Resources\Categories\Pages\CreateCategory;
+use App\Filament\Resources\Categories\Pages\EditCategory;
+use App\Filament\Resources\Categories\Pages\ListCategories;
+use App\Filament\Resources\Categories\Schemas\CategoryForm;
+use App\Filament\Resources\Categories\Tables\CategoriesTable;
+use App\Models\Category;
+use BackedEnum;
+use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Str;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 
-class CategoryForm
+class CategoryResource extends Resource
 {
-    public static function configure(Schema $schema): Schema
+    protected static ?string $model = Category::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    // 🔥 MSSV SLUG (BẮT BUỘC)
+    protected static ?string $slug = 'sv123-categories';
+
+    protected static ?string $navigationLabel = 'Categories';
+
+    public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
+        return CategoryForm::configure($schema);
+    }
 
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function ($state, $set) {
-                        $set('slug', Str::slug($state));
-                    }),
+    public static function table(Table $table): Table
+    {
+        return CategoriesTable::configure($table);
+    }
 
-                Forms\Components\TextInput::make('slug')
-                    ->required(),
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
 
-                Forms\Components\Textarea::make('description'),
-
-                Forms\Components\Toggle::make('is_visible')
-                    ->default(true),
-
-            ]);
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListCategories::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'edit' => EditCategory::route('/{record}/edit'),
+        ];
     }
 }

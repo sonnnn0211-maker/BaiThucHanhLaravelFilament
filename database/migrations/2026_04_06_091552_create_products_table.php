@@ -11,33 +11,33 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sv123_products', function (Blueprint $table) {
-    $table->id();
+        Schema::create('23810310424_products', function (Blueprint $table) {
+            $table->id();
 
-    $table->foreignId('category_id')
-        ->constrained('sv123_categories')
-        ->cascadeOnDelete();
+            $table->foreignId('category_id')
+                ->constrained('23810310424_categories')
+                ->cascadeOnDelete();
 
-    $table->string('name');
-    $table->string('slug')->unique();
-    $table->text('description')->nullable();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
 
-    $table->decimal('price', 10, 2);
-    $table->integer('stock_quantity');
+            $table->decimal('price', 10, 2);
+            $table->integer('stock_quantity');
 
-    $table->string('image_path')->nullable();
+            $table->string('image_path')->nullable();
 
-    $table->enum('status', [
-        'draft',
-        'published',
-        'out_of_stock'
-    ]);
+            $table->enum('status', [
+                'draft',
+                'published',
+                'out_of_stock'
+            ]);
 
-    // ⭐ FIELD SÁNG TẠO
-    $table->integer('discount_percent')->default(0);
+            // ⭐ FIELD SÁNG TẠO
+            $table->integer('discount_percent')->default(0);
 
-    $table->timestamps();
-});
+            $table->timestamps();
+        });
     }
 
     /**
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('23810310424_products');
     }
 };
